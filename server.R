@@ -1,3 +1,5 @@
+library(dplyr)
+
 if (!require(quantmod)) {
   stop("This app requires the quantmod package. To install it, run 'install.packages(\"quantmod\")'.\n")
 }
@@ -28,10 +30,73 @@ shinyServer(function(input, output) {
                 log.scale = input$log_y,
                 theme     = "white")
   }
-  
   output$plot_aapl <- renderPlot({ make_chart("AAPL") })
   output$plot_msft <- renderPlot({ make_chart("MSFT") })
   output$plot_ibm  <- renderPlot({ make_chart("IBM")  })
   output$plot_goog <- renderPlot({ make_chart("GOOG") })
   output$plot_yhoo <- renderPlot({ make_chart("YHOO") })
+  
+  
+   
+   
+   output$dateRangeText  <- renderText({
+     #paste(input$daterange_kase, collapse = "/")
+     paste0("http://www.kase.kz/en/index_kase/archive/",
+           paste(format(input$daterange_kase, "%d.%m.%Y"), collapse = "/"),
+           "/csv")
+     
+     # http://www.kase.kz/en/index_kase/archive/10.09.2015/11.09.2015/csv
+     
+   })
+  
+  data_kase <- reactive({
+
+    url <- paste0("http://www.kase.kz/en/index_kase/archive/",
+           paste(format(input$daterange_kase, "%d.%m.%Y"), collapse = "/"),
+           "/csv")
+    # dat <- read.csv(url)
+    # names(dat) <- c("open","high","low","close","vol")
+    # # dat$date <- format(dmy(rownames(dat)), "%Y/%m/%d")
+    # dat$date <- dmy(as.character(rownames(dat)))
+    # dat <- dat[-6]
+    # # dat <- arrange(dat, date)
+    # # dat <- dat[-1:-10,]
+    # # dat <- arrange(dat, -date)
+    # # dat <- dat[-1:-10,]
+    # dat
+    
+    dat <- read.table(url,
+                      sep = ",", header = F,
+                      skip = 1)
+    dat$V7 <- NULL
+    names(dat) <- c("date", "open","high","low","close","vol")
+    dat$date <- lubridate::mdy(dat$date)
+    dat
+    
+    })
+  
+  
+  output$table_kase <- renderDataTable({
+    
+    dat <- data_kase()
+    dat$date <- format(dat$date, "%Y/%m/%d")
+    dat[c(6,1,2,3,4,5)]
+    
+    
+    
+  })
+  
+
+  
+  output$dygraph <- renderDygraph({
+    d <- data_kase()
+    qxts <- xts(d, order.by=d[,1])
+    
+    dygraph(qxts, main = "Kase index") %>% 
+      dyRangeSelector()
+  })
+  
+
+
+
 })
