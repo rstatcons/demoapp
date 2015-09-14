@@ -6,15 +6,15 @@ library(dygraphs)
 library(datasets)
 
 dashboardPage(skin = "black",
-              dashboardHeader(title = "Demoapp"),
+              dashboardHeader(title = "Демонстрационное приложение"),
               dashboardSidebar(
                 tags$head(
                   tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
                 ),
                 sidebarMenu(
                   #menuItem("Tengen rate", tabName = "tengen", icon = icon("money")),
-                  menuItem("Kase index", tabName = "kase", icon = icon("table")),
-                  menuItem("Stock Exchange Rates", tabName = "stock", icon = icon("line-chart"))
+                  menuItem("Индекс KASE", tabName = "kase", icon = icon("table")),
+                  menuItem("Акции", tabName = "stock", icon = icon("line-chart"))
                 )
                 
                 
@@ -33,9 +33,9 @@ dashboardPage(skin = "black",
                           
                           fluidRow(
                             column(12,
-                            dateRangeInput(inputId = "daterange_kase", label = "Date range",
+                            dateRangeInput(inputId = "daterange_kase", label = "Интервал дат",
                                            start = Sys.Date() - 365, end = Sys.Date()),
-                            checkboxInput("showgrid", label = "Show Grid", value = TRUE)
+                            checkboxInput("showgrid", label = "Показывать сетку", value = TRUE)
                             )
                             ),
                             tags$hr(),
@@ -70,16 +70,16 @@ dashboardPage(skin = "black",
                           ),
                           column(4,
                                  selectInput(inputId = "chart_type",
-                                             label = "Chart type",
+                                             label = "Тип графика",
                                              choices = c("Candlestick" = "candlesticks",
                                                          "Matchstick" = "matchsticks",
                                                          "Bar" = "bars",
                                                          "Line" = "line")
                                  ),
-                                 dateRangeInput(inputId = "daterange", label = "Date range",
+                                 dateRangeInput(inputId = "daterange", label = "Интервал дат",
                                                 start = Sys.Date() - 365, end = Sys.Date()),
                                  
-                                 checkboxInput(inputId = "log_y", label = "log y axis", value = FALSE)
+                                 checkboxInput(inputId = "log_y", label = "Логарифм по вертикали", value = FALSE)
                           )
                           ),
                         fluidRow(
