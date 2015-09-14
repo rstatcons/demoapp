@@ -34,8 +34,8 @@ dashboardPage(skin = "black",
                           fluidRow(
                             column(12,
                             dateRangeInput(inputId = "daterange_kase", label = "Интервал дат",
-                                           start = Sys.Date() - 365, end = Sys.Date()),
-                            checkboxInput("showgrid", label = "Показывать сетку", value = TRUE)
+                                           start = Sys.Date() - 365, end = Sys.Date())#,
+                            #checkboxInput("showgrid", label = "Показывать сетку", value = TRUE)
                             )
                             ),
                             tags$hr(),
