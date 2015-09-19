@@ -70,6 +70,7 @@ shinyServer(function(input, output) {
                       skip = 1)
     dat$V7 <- NULL
     names(dat) <- c("date", "open","high","low","close","vol")
+    dat$vol <- NULL
     dat$date <- lubridate::mdy(dat$date)
     dat
     
@@ -80,7 +81,7 @@ shinyServer(function(input, output) {
     
     dat <- data_kase()
     dat$date <- format(dat$date, "%Y/%m/%d")
-    dat[c(6,1,2,3,4,5)]
+    dat
     
     
     

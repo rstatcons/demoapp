@@ -47,6 +47,7 @@ dashboardPage(skin = "black",
                             checkboxInput("showgrid", 
                                           label = "Показывать сетку", 
                                           value = TRUE)
+
                             )
                             ),
                             tags$hr(),
