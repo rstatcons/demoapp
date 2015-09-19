@@ -51,14 +51,16 @@ dashboardPage(skin = "black",
                             )
                             ),
                             tags$hr(),
-                          fluidRow(
-                            infoBoxOutput("box_high",  width=6),
-                            infoBoxOutput("box_low",  width=6)
-                          ),
+
                           fluidRow(
                             column(12, 
                                    dygraphOutput("dygraph")
                             )
+                          ),
+                          tags$br(),
+                          fluidRow(
+                            infoBoxOutput("box_high",  width=6),
+                            infoBoxOutput("box_low",  width=6)
                           ),
                           tags$hr(),
                           fluidRow(
