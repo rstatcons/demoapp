@@ -114,6 +114,10 @@ shinyServer(function(input, output) {
     d <- data_kase()
     qxts <- xts(d[,-1], order.by=d[,1])
     
+    # Translation of months in timeseries
+    # http://stackoverflow.com/a/23957033
+    # http://stackoverflow.com/a/25314403
+    
     dygraph(qxts, main = "Индекс KASE") %>% 
       dyRangeSelector()
   })
