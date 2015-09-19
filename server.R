@@ -87,13 +87,23 @@ shinyServer(function(input, output) {
                                "Макс",
                                "Мин",
                                "Закрытие"),
-                  filter = "top")
-    
-    
-    
-  })
-  
-
+                  filter = "top",
+                  options = list(language = list(
+                    # url = "dataTables.russian.lang",
+                    lengthMenu = "Строк на страницу: _MENU_",
+                    search     = "Искать: ",
+                    info       = "Показаны строки от №_START_ до №_END_ из _TOTAL_",
+                    infoFiltered =  "(отфильтровано из _MAX_ записей)",
+                    paginate = list(sFirst =    "Первая",
+                                    sPrevious = "Предыдущая",
+                                    sNext =     "Следующая",
+                                    sLast =     "Последняя")
+                    ),
+                                 pageLength = 5
+                                 )
+    )
+    } 
+    )
   
   output$dygraph <- renderDygraph({
     d <- data_kase()
