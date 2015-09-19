@@ -107,7 +107,7 @@ shinyServer(function(input, output) {
   
   output$dygraph <- renderDygraph({
     d <- data_kase()
-    qxts <- xts(d, order.by=d[,1])
+    qxts <- xts(d[,-1], order.by=d[,1])
     
     dygraph(qxts, main = "Индекс KASE") %>% 
       dyRangeSelector()
