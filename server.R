@@ -69,7 +69,12 @@ shinyServer(function(input, output) {
                       sep = ",", header = F,
                       skip = 1)
     dat$V7 <- NULL
-    names(dat) <- c("date", "open","high","low","close","vol")
+    names(dat) <- c("date", 
+                    "Откр",
+                    "Макс",
+                    "Мин",
+                    "Закр",
+                    "vol")
     dat$vol <- NULL
     dat$date <- lubridate::mdy(dat$date)
     dat
