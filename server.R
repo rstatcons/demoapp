@@ -110,7 +110,8 @@ shinyServer(function(input, output) {
     # http://stackoverflow.com/a/25314403
     
     dygraph(qxts, main = "Индекс KASE") %>% 
-      dyRangeSelector()
+      dyRangeSelector() %>% 
+      dyOptions(drawGrid = input$showgrid)
   })
   
   output$box_high <- renderInfoBox({
