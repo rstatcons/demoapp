@@ -48,23 +48,14 @@ shinyServer(function(input, output) {
      # http://www.kase.kz/en/index_kase/archive/10.09.2015/11.09.2015/csv
      
    })
+   
+    # url <- "http://www.kase.kz/en/index_kase/archive/10.09.2014/11.09.2015/csv"
   
   data_kase <- reactive({
 
     url <- paste0("http://www.kase.kz/en/index_kase/archive/",
            paste(format(input$daterange_kase, "%d.%m.%Y"), collapse = "/"),
            "/csv")
-    # dat <- read.csv(url)
-    # names(dat) <- c("open","high","low","close","vol")
-    # # dat$date <- format(dmy(rownames(dat)), "%Y/%m/%d")
-    # dat$date <- dmy(as.character(rownames(dat)))
-    # dat <- dat[-6]
-    # # dat <- arrange(dat, date)
-    # # dat <- dat[-1:-10,]
-    # # dat <- arrange(dat, -date)
-    # # dat <- dat[-1:-10,]
-    # dat
-    
     dat <- read.table(url,
                       sep = ",", header = F,
                       skip = 1)
@@ -122,7 +113,33 @@ shinyServer(function(input, output) {
       dyRangeSelector()
   })
   
+  output$box_high <- renderInfoBox({
+    
+    dat <- data_kase()
+    
+    value <- max(dat$Откр)
+    date <- dat[dat$Откр == value,]$date
+    
+    infoBox(title="Индекс KASE - период высокой",
+            subtitle = date,
+            value=paste("Откр",value),
+               icon = icon("chevron-up"),
+               color = "green")
+  })
 
+  output$box_low <- renderInfoBox({
+    
+    dat <- data_kase()
+    
+    value <- min(dat$Откр)
+    date <- dat[dat$Откр == value,]$date
+    
+    infoBox(title="Индекс KASE - период низкой",
+            subtitle = date,
+            value=paste("Откр",value),
+            icon = icon("chevron-down"),
+            color = "red")
+  })
 
 
 })
