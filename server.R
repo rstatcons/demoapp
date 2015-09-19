@@ -86,7 +86,8 @@ shinyServer(function(input, output) {
                                "Открытие",
                                "Макс",
                                "Мин",
-                               "Закрытие"))
+                               "Закрытие"),
+                  filter = "top")
     
     
     
