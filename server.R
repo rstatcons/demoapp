@@ -69,7 +69,12 @@ shinyServer(function(input, output) {
                       sep = ",", header = F,
                       skip = 1)
     dat$V7 <- NULL
-    names(dat) <- c("date", "open","high","low","close","vol")
+    names(dat) <- c("date", 
+                    "Откр",
+                    "Макс",
+                    "Мин",
+                    "Закр",
+                    "vol")
     dat$vol <- NULL
     dat$date <- lubridate::mdy(dat$date)
     dat
@@ -77,23 +82,43 @@ shinyServer(function(input, output) {
     })
   
   
-  output$table_kase <- renderDataTable({
+  output$table_kase <- DT::renderDataTable({
     
     dat <- data_kase()
-    dat$date <- format(dat$date, "%Y/%m/%d")
-    dat
-    
-    
-    
-  })
-  
-
+    dat$date <- as.Date(format(dat$date, "%Y-%m-%d"))
+    DT::datatable(dat, 
+                  colnames = c("Дата",
+                               "Открытие",
+                               "Макс",
+                               "Мин",
+                               "Закрытие"),
+                  filter = "top",
+                  options = list(language = list(
+                    # url = "dataTables.russian.lang",
+                    lengthMenu = "Строк на страницу: _MENU_",
+                    search     = "Искать: ",
+                    info       = "Показаны строки от №_START_ до №_END_ из _TOTAL_",
+                    infoFiltered =  "(отфильтровано из _MAX_ записей)",
+                    paginate = list(sFirst =    "Первая",
+                                    sPrevious = "Предыдущая",
+                                    sNext =     "Следующая",
+                                    sLast =     "Последняя")
+                    ),
+                                 pageLength = 5
+                                 )
+    )
+    } 
+    )
   
   output$dygraph <- renderDygraph({
     d <- data_kase()
-    qxts <- xts(d, order.by=d[,1])
+    qxts <- xts(d[,-1], order.by=d[,1])
     
-    dygraph(qxts, main = "Kase index") %>% 
+    # Translation of months in timeseries
+    # http://stackoverflow.com/a/23957033
+    # http://stackoverflow.com/a/25314403
+    
+    dygraph(qxts, main = "Индекс KASE") %>% 
       dyRangeSelector()
   })
   
