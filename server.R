@@ -80,7 +80,7 @@ shinyServer(function(input, output) {
   output$table_kase <- renderDataTable({
     
     dat <- data_kase()
-    dat$date <- format(dat$date, "%Y/%m/%d")
+    dat$date <- format(dat$date, "%d.%m.%Y")
     dat
     
     
