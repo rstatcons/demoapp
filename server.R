@@ -77,7 +77,7 @@ shinyServer(function(input, output) {
     })
   
   
-  output$table_kase <- renderDataTable({
+  output$table_kase <- DT::renderDataTable({
     
     dat <- data_kase()
     dat$date <- format(dat$date, "%d.%m.%Y")
