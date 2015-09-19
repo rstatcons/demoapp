@@ -1,3 +1,7 @@
+lang <- "ru"
+dateRangeInputSepar <- "до"
+
+
 library(shinydashboard)
 library(shiny)
 library(DT)
@@ -6,7 +10,7 @@ library(dygraphs)
 library(datasets)
 
 dashboardPage(skin = "black",
-              dashboardHeader(title = "Демонстрационное приложение"),
+              dashboardHeader(title = "Демприложение"),
               dashboardSidebar(
                 tags$head(
                   tags$link(rel = "stylesheet", type = "text/css", href = "custom.css")
@@ -33,9 +37,16 @@ dashboardPage(skin = "black",
                           
                           fluidRow(
                             column(12,
-                            dateRangeInput(inputId = "daterange_kase", label = "Интервал дат",
-                                           start = Sys.Date() - 365, end = Sys.Date()),
-                            checkboxInput("showgrid", label = "Показывать сетку", value = TRUE)
+                            dateRangeInput(inputId = "daterange_kase", 
+                                           label = "Интервал дат",
+                                           start = Sys.Date() - 365, 
+                                           end = Sys.Date(),
+                                           language = lang,
+                                           separator = dateRangeInputSepar,
+                                           format = "dd.mm.yyyy"),
+                            checkboxInput("showgrid", 
+                                          label = "Показывать сетку", 
+                                          value = TRUE)
                             )
                             ),
                             tags$hr(),
@@ -71,13 +82,15 @@ dashboardPage(skin = "black",
                           column(4,
                                  selectInput(inputId = "chart_type",
                                              label = "Тип графика",
-                                             choices = c("Candlestick" = "candlesticks",
-                                                         "Matchstick" = "matchsticks",
+                                             choices = c("Японские свечи" = "candlesticks",
+                                                         "Спичечный" = "matchsticks",
                                                          "Bar" = "bars",
                                                          "Line" = "line")
                                  ),
                                  dateRangeInput(inputId = "daterange", label = "Интервал дат",
-                                                start = Sys.Date() - 365, end = Sys.Date()),
+                                                start = Sys.Date() - 365, end = Sys.Date(),
+                                                language = lang,
+                                                separator = dateRangeInputSepar),
                                  
                                  checkboxInput(inputId = "log_y", label = "Логарифм по вертикали", value = FALSE)
                           )
