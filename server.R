@@ -81,7 +81,12 @@ shinyServer(function(input, output) {
     
     dat <- data_kase()
     dat$date <- format(dat$date, "%d.%m.%Y")
-    dat
+    DT::datatable(dat, 
+                  colnames = c("Дата",
+                               "Открытие",
+                               "Макс",
+                               "Мин",
+                               "Закрытие"))
     
     
     
