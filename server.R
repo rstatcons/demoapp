@@ -123,7 +123,7 @@ shinyServer(function(input, output) {
     
     infoBox(title="Открытие: максимум",
             subtitle = date,
-            value=paste("Откр",value),
+            value=value,
                icon = icon("chevron-up"),
                color = "green")
   })
@@ -137,7 +137,7 @@ shinyServer(function(input, output) {
     
     infoBox(title="Открытие: минимум",
             subtitle = date,
-            value=paste("Откр",value),
+            value=value,
             icon = icon("chevron-down"),
             color = "red")
   })
