@@ -91,8 +91,8 @@ dashboardPage(skin = "black",
                                              label = "Тип графика",
                                              choices = c("Японские свечи" = "candlesticks",
                                                          "Спичечный" = "matchsticks",
-                                                         "Bar" = "bars",
-                                                         "Line" = "line")
+                                                         "Столбики" = "bars",
+                                                         "Кривая" = "line")
                                  ),
                                  dateRangeInput(inputId = "daterange", label = "Интервал дат",
                                                 start = Sys.Date() - 365, end = Sys.Date(),
