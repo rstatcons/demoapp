@@ -121,7 +121,7 @@ shinyServer(function(input, output) {
     value <- max(dat$Откр)
     date <- dat[dat$Откр == value,]$date
     
-    infoBox(title="Индекс KASE - период высокой",
+    infoBox(title="Открытие: максимум",
             subtitle = date,
             value=paste("Откр",value),
                icon = icon("chevron-up"),
@@ -135,7 +135,7 @@ shinyServer(function(input, output) {
     value <- min(dat$Откр)
     date <- dat[dat$Откр == value,]$date
     
-    infoBox(title="Индекс KASE - период низкой",
+    infoBox(title="Открытие: минимум",
             subtitle = date,
             value=paste("Откр",value),
             icon = icon("chevron-down"),
