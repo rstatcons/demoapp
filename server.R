@@ -105,13 +105,29 @@ shinyServer(function(input, output) {
     d <- data_kase()
     qxts <- xts(d[,-1], order.by=d[,1])
     
-    # Translation of months in timeseries
-    # http://stackoverflow.com/a/23957033
-    # http://stackoverflow.com/a/25314403
+    ## Setting system locale to extract names of months from OS
+    ## ru_RU.itf8 as in LInux. Probably UTF-8 in Windows
+    Sys.setlocale("LC_TIME","ru_RU.utf8")
+    
+    ## Extraction of months' names
+    months <- format(ISOdate(2004,1:12,1),"%b")
+    
+    ## Converting names to a string for JS-function
+    months <- paste0("'",
+                     paste0(months, collapse = "', '"),
+                     "'")
+    
+    ## Forming JS-function
+    axlabform <- paste0(
+      "function(date, granularity, opts, dygraph) {
+  var months = [",
+      months,
+      "]; return months[date.getMonth()] + \" \" + date.getFullYear()}")
     
     dygraph(qxts, main = "Индекс KASE") %>% 
       dyRangeSelector() %>% 
-      dyOptions(drawGrid = input$showgrid)
+      dyOptions(drawGrid = input$showgrid) %>% 
+      dyAxis("x", axisLabelFormatter = axlabform)
   })
   
   output$box_high <- renderInfoBox({
