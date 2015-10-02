@@ -1,8 +1,6 @@
-library(dplyr)
+library(dplyr, warn.conflicts = F)
+library(quantmod, warn.conflicts = F)
 
-if (!require(quantmod)) {
-  stop("This app requires the quantmod package. To install it, run 'install.packages(\"quantmod\")'.\n")
-}
 
 # Download data for a stock if needed, and return the data
 require_symbol <- function(symbol, envir = parent.frame()) {

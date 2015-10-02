@@ -2,11 +2,11 @@ lang <- "ru"
 dateRangeInputSepar <- "до"
 
 
-library(shinydashboard)
+library(shinydashboard, warn.conflicts = F)
 library(shiny)
-library(DT)
-library(lubridate)
-library(dygraphs)
+library(DT, warn.conflicts = F)
+library(lubridate, warn.conflicts = F)
+library(dygraphs, warn.conflicts = F)
 library(datasets)
 
 dashboardPage(skin = "black",
