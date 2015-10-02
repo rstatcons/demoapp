@@ -74,8 +74,9 @@ shinyServer(function(input, output) {
   output$table_kase <- DT::renderDataTable({
     
     dat <- data_kase()
-    dat$date <- as.Date(format(dat$date, "%Y-%m-%d"))
-    DT::datatable(dat, 
+    # dat$date <- as.Date(format(dat$date, "%Y-%m-%d"))
+    DT::datatable(dat %>% 
+                    mutate_(date = ~as.Date(date)), 
                   colnames = c("Дата",
                                "Открытие",
                                "Макс",
@@ -136,7 +137,7 @@ shinyServer(function(input, output) {
     date <- dat[dat$Откр == value,]$date
     
     infoBox(title="Открытие: максимум",
-            subtitle = date,
+            subtitle = format(date, dateFormat),
             value=value,
                icon = icon("chevron-up"),
                color = "green")
@@ -150,7 +151,7 @@ shinyServer(function(input, output) {
     date <- dat[dat$Откр == value,]$date
     
     infoBox(title="Открытие: минимум",
-            subtitle = date,
+            subtitle = format(date, dateFormat),
             value=value,
             icon = icon("chevron-down"),
             color = "red")

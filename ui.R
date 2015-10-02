@@ -1,7 +1,3 @@
-lang <- "ru"
-dateRangeInputSepar <- "до"
-
-
 library(shinydashboard, warn.conflicts = F)
 library(shiny)
 library(DT, warn.conflicts = F)
@@ -43,7 +39,7 @@ dashboardPage(skin = "black",
                                            end = Sys.Date(),
                                            language = lang,
                                            separator = dateRangeInputSepar,
-                                           format = "dd.mm.yyyy"),
+                                           format = shinyDateFormat),
                             checkboxInput("showgrid", 
                                           label = "Показывать сетку", 
                                           value = TRUE)
@@ -97,7 +93,8 @@ dashboardPage(skin = "black",
                                  dateRangeInput(inputId = "daterange", label = "Интервал дат",
                                                 start = Sys.Date() - 365, end = Sys.Date(),
                                                 language = lang,
-                                                separator = dateRangeInputSepar),
+                                                separator = dateRangeInputSepar,
+                                                format = shinyDateFormat),
                                  
                                  checkboxInput(inputId = "log_y", label = "Логарифм по вертикали", value = FALSE)
                           )
